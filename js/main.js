@@ -9,18 +9,11 @@ function init() {
 function search() {
     headlines = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
     headlines = Array.from(headlines);
-    console.log(headlines);
-    headlines.forEach(e => {
-        console.log(e.innerHTML);
-        
-    });
 }
 
 function setId () {
     headlines.forEach(e => {
-        var id = document.createAttribute("id");
-        id.value = e.innerHTML;
-        e.setAttributeNode(id);
+        e.setAttribute("id", randomID() );
         
     });
     
@@ -33,16 +26,23 @@ function contentList () {
         var li = document.createElement("li");
         ul.appendChild(li);
         var a = document.createElement("a");
-        var linkText = document.createTextNode(e.innerHTML);
-        a.appendChild(linkText);
+        a.appendChild(document.createTextNode(e.innerHTML));
         a.href = "#" + e.id;
         document.body.appendChild(a);
         li.appendChild(a);
+        li.setAttribute("class", e.tagName);
         
     });
 }
 
-
+function randomID() {
+    let symbols = "0123456789ABCDEF";
+    let res = "";
+    for (let i = 0; i < 6; i++) {
+        res += symbols[Math.floor(Math.random() * symbols.length)];
+    }
+    return res;
+}
 
 
 
