@@ -1,38 +1,50 @@
-var headlines = [];
+
 function init() {
-    search();
-    setId();
-    contentList();
+    var content1 = new ContentGenerator("#content-list");
+    content1.contentList();
 
 }
 
-function search() {
-    headlines = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-    headlines = Array.from(headlines);
-}
+class ContentGenerator {
+    constructor (position) {
+        this.root = document.querySelector(position);
+        var headlines = [];
+    }
 
-function setId () {
-    headlines.forEach(e => {
-        e.setAttribute("id", randomID() );
-        
-    });
-    
-}
+    // search = () => {
+    //     var headlines = this.headlines;
+    //     headlines = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    //     headlines = Array.from(headlines);
+    // }
 
-function contentList () {
-    var ul = document.createElement("ul");
-    document.body.appendChild(ul)
-    headlines.forEach(e => {
-        var li = document.createElement("li");
-        ul.appendChild(li);
-        var a = document.createElement("a");
-        a.appendChild(document.createTextNode(e.innerHTML));
-        a.href = "#" + e.id;
-        document.body.appendChild(a);
-        li.appendChild(a);
-        li.setAttribute("class", e.tagName);
-        
-    });
+    // setId = () => {
+    //     headlines.forEach(e => {
+    //         e.setAttribute("id", randomID() );
+            
+    //     });
+    // }
+
+    contentList = () => {
+        var headlines = this.headlines;
+        headlines = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+        headlines = Array.from(headlines);
+        headlines.forEach(e => {
+            e.setAttribute("id", randomID() );
+        });
+        var ul = document.createElement("ul");
+        this.root.appendChild(ul)
+        headlines.forEach(e => {
+            var li = document.createElement("li");
+            ul.appendChild(li);
+            var a = document.createElement("a");
+            a.appendChild(document.createTextNode(e.innerHTML));
+            a.href = "#" + e.id;
+            this.root.appendChild(a);
+            li.appendChild(a);
+            li.setAttribute("class", e.tagName);
+            
+        });
+    }
 }
 
 function randomID() {
